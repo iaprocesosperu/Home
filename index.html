@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Procesos — Automatizamos tus Procesos con Inteligencia Artificial</title>
+<meta name="description" content="IA Procesos - Automatización inteligente de procesos empresariales con Inteligencia Artificial. Próximamente en Perú.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold-deep: #b8860b;
+    --gold: #d4a017;
+    --gold-bright: #f0c420;
+    --gold-light: #fce588;
+    --gold-pale: #fef9e7;
+    --white: #ffffff;
+    --bg-dark: #1a1408;
+    --text-muted: #8a7a50;
+    --glow-gold: rgba(212, 160, 23, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .bg-pattern {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(212, 160, 23, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(240, 196, 32, 0.04) 0%, transparent 50%);
+  }
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(212, 160, 23, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 160, 23, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .ornament { position: fixed; z-index: 0; opacity: 0.03; color: var(--gold); font-size: 300px; font-family: 'Playfair Display', serif; }
+  .ornament--1 { top: -60px; left: -40px; }
+  .ornament--2 { bottom: -60px; right: -40px; transform: rotate(180deg); }
+
+  .bg-orb { position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; animation: orbFloat 25s ease-in-out infinite; }
+  .bg-orb--1 { width: 600px; height: 600px; background: rgba(212, 160, 23, 0.08); top: -15%; left: -10%; }
+  .bg-orb--2 { width: 500px; height: 500px; background: rgba(240, 196, 32, 0.06); bottom: -15%; right: -10%; animation-delay: -8s; }
+  .bg-orb--3 { width: 350px; height: 350px; background: rgba(255, 255, 255, 0.03); top: 50%; left: 40%; animation-delay: -16s; }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(25px, -35px) scale(1.04); }
+    66% { transform: translate(-20px, 25px) scale(0.96); }
+  }
+
+  .particles { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+  .particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; opacity: 0; animation: particleRise linear infinite; }
+  @keyframes particleRise {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+  }
+
+  .wrapper {
+    position: relative; z-index: 1; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .top-line { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin-bottom: 30px; animation: fadeIn 1s ease-out; }
+
+  .brand { text-align: center; margin-bottom: 10px; animation: fadeSlideUp 1s ease-out; }
+  .logo-icon { width: 80px; height: 80px; margin: 0 auto 22px; }
+  .logo-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 0 25px rgba(212, 160, 23, 0.4)); }
+
+  .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 7vw, 4.2rem); font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; }
+  .brand-name .ia { background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--gold-deep)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .brand-name .procesos { color: var(--white); }
+
+  .brand-tagline { font-size: clamp(0.95rem, 2.5vw, 1.15rem); color: var(--gold-light); font-weight: 300; margin-top: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.25);
+    border-radius: 50px; padding: 8px 22px; margin: 30px 0 38px;
+    font-size: 0.85rem; font-weight: 500; color: var(--gold-bright);
+    animation: fadeSlideUp 1s ease-out 0.2s both;
+  }
+  .status-dot { width: 8px; height: 8px; background: var(--gold-bright); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(240, 196, 32, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(240, 196, 32, 0); }
+  }
+
+  .hero-card {
+    background: rgba(26, 20, 8, 0.7); backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 160, 23, 0.12); border-radius: 24px;
+    padding: 52px 44px; max-width: 640px; width: 100%; text-align: center;
+    animation: fadeSlideUp 1s ease-out 0.4s both; position: relative; overflow: hidden;
+  }
+  .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent); opacity: 0.6; }
+  .hero-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-deep), transparent); opacity: 0.3; }
+
+  .lema { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 700; line-height: 1.4; margin-bottom: 8px; color: var(--white); }
+  .lema .gold { color: var(--gold-bright); }
+  .lema-sub { font-size: 1rem; color: var(--gold-light); font-weight: 300; margin-bottom: 32px; opacity: 0.8; font-style: italic; }
+  .divider { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 28px; }
+
+  .hero-card p { color: rgba(255, 255, 255, 0.65); line-height: 1.8; font-size: 0.95rem; font-weight: 300; margin-bottom: 32px; }
+
+  .services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 34px; }
+  .service-item {
+    display: flex; align-items: center; gap: 10px; padding: 13px 16px;
+    background: rgba(212, 160, 23, 0.04); border: 1px solid rgba(212, 160, 23, 0.1);
+    border-radius: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); transition: all 0.3s ease;
+  }
+  .service-item:hover { border-color: rgba(212, 160, 23, 0.3); background: rgba(212, 160, 23, 0.08); color: var(--white); transform: translateY(-2px); }
+  .service-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+  .countdown-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .countdown { display: flex; justify-content: center; gap: 14px; margin-bottom: 34px; }
+  .countdown-block { text-align: center; }
+  .countdown-num { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 500; background: linear-gradient(135deg, var(--gold-bright), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .countdown-unit { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; }
+  .countdown-sep { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; color: var(--gold-deep); line-height: 1; animation: blink 1s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
+
+  .contact-section { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+  .contact-btn svg { width: 18px; height: 18px; }
+  .contact-email { background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: var(--bg-dark); box-shadow: 0 4px 20px rgba(212, 160, 23, 0.3); }
+  .contact-email:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 160, 23, 0.45); }
+  .contact-whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: white; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.2); }
+  .contact-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35); }
+
+  .footer { margin-top: 50px; text-align: center; animation: fadeSlideUp 1s ease-out 0.6s both; }
+  .footer p { font-size: 0.78rem; color: var(--text-muted); }
+  .footer .brand-foot { color: var(--gold); font-weight: 500; }
+  .footer-ornament { width: 30px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-deep), transparent); margin: 12px auto; }
+
+  @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (max-width: 520px) {
+    .hero-card { padding: 36px 24px; }
+    .services { grid-template-columns: 1fr; }
+    .countdown-num { font-size: 1.6rem; }
+    .contact-section { flex-direction: column; }
+    .contact-btn { width: 100%; justify-content: center; }
+    .lema { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+<div class="bg-grid"></div>
+<div class="ornament ornament--1">✦</div>
+<div class="ornament ornament--2">✦</div>
+<div class="bg-orb bg-orb--1"></div>
+<div class="bg-orb bg-orb--2"></div>
+<div class="bg-orb bg-orb--3"></div>
+<div class="particles" id="particles"></div>
+
+<div class="wrapper">
+  <div class="top-line"></div>
+
+  <div class="brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="50" cy="50" r="38" stroke="url(#goldGrad)" stroke-width="1" opacity="0.15"/>
+        <path d="M32 56 Q32 32 50 26 Q68 32 68 56" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="26" r="4.5" fill="url(#goldGrad)"/>
+        <circle cx="32" cy="56" r="3.5" fill="#f0c420"/>
+        <circle cx="68" cy="56" r="3.5" fill="#d4a017"/>
+        <line x1="50" y1="31" x2="50" y2="68" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.35"/>
+        <circle cx="50" cy="46" r="3" fill="#f0c420"/>
+        <circle cx="50" cy="60" r="2.2" fill="#d4a017" opacity="0.6"/>
+        <circle cx="40" cy="40" r="2" fill="#f0c420" opacity="0.6"/>
+        <circle cx="60" cy="40" r="2" fill="#d4a017" opacity="0.6"/>
+        <line x1="40" y1="40" x2="50" y2="46" stroke="#f0c420" stroke-width="1" opacity="0.3"/>
+        <line x1="60" y1="40" x2="50" y2="46" stroke="#d4a017" stroke-width="1" opacity="0.3"/>
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f0c420"/>
+            <stop offset="50%" stop-color="#d4a017"/>
+            <stop offset="100%" stop-color="#b8860b"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="brand-name">
+      <span class="ia">IA</span><span class="procesos"> Procesos</span>
+    </div>
+    <div class="brand-tagline">Automatización Inteligente</div>
+  </div>
+
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    Sitio en construcción
+  </div>
+
+  <div class="hero-card">
+    <div class="lema">
+      Automatizamos sus procesos,<br>
+      <span class="gold">usted solo disfrute los resultados</span>
+    </div>
+    <div class="lema-sub">— Déjelo en nuestras manos —</div>
+
+    <div class="divider"></div>
+
+    <p>
+      Transformamos la forma en que opera su negocio. Con inteligencia artificial
+      de última generación, automatizamos sus procesos para que usted se enfoque
+      en lo que realmente importa: hacer crecer su empresa.
+    </p>
+
+    <div class="services">
+      <div class="service-item">
+        <span class="service-icon">🤖</span>
+        Automatización con IA
+      </div>
+      <div class="service-item">
+        <span class="service-icon">📊</span>
+        Análisis Inteligente
+      </div>
+      <div class="service-item">
+        <span class="service-icon">💻</span>
+        Software a Medida
+      </div>
+      <div class="service-item">
+        <span class="service-icon">⚡</span>
+        Procesos Optimizados
+      </div>
+    </div>
+
+    <div class="countdown-label">Próximo lanzamiento</div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-block">
+        <div class="countdown-num" id="days">--</div>
+        <div class="countdown-unit">Días</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="hours">--</div>
+        <div class="countdown-unit">Horas</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="mins">--</div>
+        <div class="countdown-unit">Min</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="secs">--</div>
+        <div class="countdown-unit">Seg</div>
+      </div>
+    </div>
+
+    <div class="contact-section">
+      <a href="mailto:contacto@iaprocesos.com.pe" class="contact-btn contact-email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+        Contáctanos
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-ornament"></div>
+    <p>© 2026 <span class="brand-foot">IA Procesos</span> — Perú</p>
+    <p style="margin-top:4px; font-size:0.72rem; letter-spacing:0.1em;">AUTOMATIZANDO EL FUTURO CON INTELIGENCIA ARTIFICIAL</p>
+  </div>
+</div>
+
+<script>
+  const launchDate = new Date();
+  launchDate.setDate(launchDate.getDate() + 7);
+  function updateCountdown() {
+    const now = new Date();
+    const diff = launchDate - now;
+    if (diff <= 0) return;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('days').textContent = String(d).padStart(2, '0');
+    document.getElementById('hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('mins').textContent = String(m).padStart(2, '0');
+    document.getElementById('secs').textContent = String(s).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  const particlesEl = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (10 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    const size = (2 + Math.random() * 3) + 'px';
+    p.style.width = size;
+    p.style.height = size;
+    p.style.background = ['#f0c420', '#d4a017', '#b8860b', '#ffffff'][Math.floor(Math.random() * 4)];
+    particlesEl.appendChild(p);
+  }
+</script>
+</body>
+</html>
